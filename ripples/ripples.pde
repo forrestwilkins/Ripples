@@ -14,5 +14,10 @@ void draw() {
 }
 
 void mousePressed() {
+  pond.startSwipe();
+}
+
+void mouseReleased() {
+  pond.swipeDetector();
   pond.ripple(mouseX, mouseY);
 }

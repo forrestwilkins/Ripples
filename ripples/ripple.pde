@@ -6,11 +6,13 @@ class Ripple {
   boolean fatR = false,
     fatG = false,
     fatB = false;
-  float red, green, blue;
+  float red, green, blue,
+    redCR, greenCR, blueCR;
   color ripColor;
   
   Ripple (float mx, float my) {
     colorPalette();
+    growth = 1;
     x = mx;
     y = my;
   }
@@ -25,19 +27,22 @@ class Ripple {
   }
 
   void travel() {
-    r++;
+    r += growth;
   }
   
   void death() {
-    if (r > height) {
+    if (r > height*1.5) {
       pond.ripples.remove(this);
     }
   }
   
   void colorPalette() {
-    red = random(0, 256);
-    green = random(0, 256);
-    blue = random(0, 256);
+    redCR = random(1, 2);
+    greenCR = random(1, 2);
+    blueCR = random(1, 2);
+    red = random(0, 250);
+    green = random(0, 250);
+    blue = random(0, 250);
     ripColor = color(red, green, blue);
   }
   
@@ -46,7 +51,7 @@ class Ripple {
     float min = 100;
     float max = 230;
     // Red
-    colorCR = random(1.5);
+    colorCR = random(redCR);
     if (red < min) {
       fatR = false;
     } else if (red > max) {
@@ -55,7 +60,7 @@ class Ripple {
         red -= colorCR;
     } else red += colorCR;
     // Green
-    colorCR = random(1.5);
+    colorCR = random(greenCR);
     if (green < min) {
       fatG = false;
     } else if (green > max) {
@@ -64,7 +69,7 @@ class Ripple {
         green -= colorCR;
     } else green += colorCR;
     // Blue
-    colorCR = random(1.5);
+    colorCR = random(blueCR);
     if (blue < min) {
       fatB = false;
     } else if (blue > max) {
