@@ -1,13 +1,15 @@
 // ripples where you press, expanding until height, then fade
-// speed to very in travel
+// to add translate for triangles
 
 class Ripple {
-  float x, y, r, growth;
+  float x, y, size, growth;
   boolean fatR = false,
     fatG = false,
     fatB = false;
   float red, green, blue,
-    redCR, greenCR, blueCR;
+    rMin, gMin, bMin,
+    rMax, gMax, bMax,
+    rCR, gCR, bCR;
   color ripColor;
   
   Ripple (float mx, float my) {
@@ -20,59 +22,65 @@ class Ripple {
   void update() {
     noFill();
     stroke(ripColor);
-    ellipse(x, y, r, r);
+    if (water.mode == 0) ellipse(x, y, size, size);
+    else rect(x, y, size, size);
     colorMorph();
     travel();
     death();
   }
 
   void travel() {
-    r += growth;
+    size += growth;
   }
   
   void death() {
-    if (r > height*1.5) {
-      pond.ripples.remove(this);
+    if (size > height*1.5) {
+      water.ripples.remove(this);
     }
   }
   
   void colorPalette() {
-    redCR = random(1, 2);
-    greenCR = random(1, 2);
-    blueCR = random(1, 2);
     red = random(0, 250);
     green = random(0, 250);
     blue = random(0, 250);
-    ripColor = color(red, green, blue);
+    rMin = random(1, 120);
+    gMin = random(1, 120);
+    bMin = random(1, 120);
+    rMax = random(130, 255);
+    gMax = random(130, 255);
+    bMax = random(130, 255);
+    rCR = random(1, 2);
+    gCR = random(1, 2);
+    bCR = random(1, 2);
+    ripColor = color(red,
+      green, blue);
   }
   
   void colorMorph() {
     float colorCR;
-    float min = 100;
-    float max = 230;
     // Red
-    colorCR = random(redCR);
-    if (red < min) {
+    colorCR = random(rCR);
+    if (red < rMin) {
       fatR = false;
-    } else if (red > max) {
+    } else if (red > rMax) {
         fatR = true;
     } if (fatR) {
         red -= colorCR;
     } else red += colorCR;
     // Green
-    colorCR = random(greenCR);
-    if (green < min) {
+    colorCR = random(gCR);
+    if (green < gMin) {
       fatG = false;
-    } else if (green > max) {
+    } else if (green > gMax) {
         fatG = true;
     } if (fatG) {
         green -= colorCR;
     } else green += colorCR;
     // Blue
-    colorCR = random(blueCR);
-    if (blue < min) {
+    colorCR = random(bCR);
+    if (blue < bMin) {
       fatB = false;
-    } else if (blue > max) {
+    } else if (blue > bMax) {
         fatB = true;
     } if (fatB) {
         blue -= colorCR;

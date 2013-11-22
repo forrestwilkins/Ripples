@@ -1,23 +1,24 @@
-Water pond;
+Water water;
 
 void setup() {
   size(displayWidth, displayHeight);
   orientation(PORTRAIT);
   ellipseMode(CENTER);
-  pond = new Water();
+  rectMode(CENTER);
+  water = new Water();
   background(0);
   smooth();
 }
 
 void draw() {
-  pond.display();
+  water.display();
 }
 
 void mousePressed() {
-  pond.startSwipe();
+  water.startSwipe();
 }
 
 void mouseReleased() {
-  pond.swipeDetector();
-  pond.ripple(mouseX, mouseY);
+  water.swipeDetector();
+  water.ripple(mouseX, mouseY);
 }

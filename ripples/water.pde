@@ -45,6 +45,14 @@ class Water {
           ripples.remove(rip);
         } background(0);
         swiped = true;
+        // up
+        if (yDist >= up || yDist <= down) {
+          
+          if (mode < 1) {
+            mode++;
+          } else mode = 0;
+        
+        }
       }
     }
   }
