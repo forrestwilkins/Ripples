@@ -1,3 +1,5 @@
+// long press for screenshot
+
 class Water {
   ArrayList<Ripple> ripples = new ArrayList<Ripple>();
   // swipe logic variables
@@ -39,18 +41,21 @@ class Water {
     yDist = pmousey - mouseY;
     if (releaseTime < pressTime + 600) { // for long draws or non-swipes
       if (yDist >= up || yDist <= down || xDist >= left || xDist <= right) {
-        // clear screen
-        for (int i=0; i < ripples.size(); i++) {
-          Ripple rip = ripples.get(i);
-          ripples.remove(rip);
-        } background(0);
         swiped = true;
-        // up
+        
+        // clear screen
+        if (xDist >= left || xDist <= right) {
+          for (int i=0; i < ripples.size(); i++) {
+            Ripple rip = ripples.get(i);
+            ripples.remove(rip);
+          } background(0);
+        }
+        
         if (yDist >= up || yDist <= down) {
-          
-          if (mode < 1) {
-            mode++;
-          } else mode = 0;
+          saveFrame("/storage/sdcard0/Pictures/ripples-#####.png");
+//          if (mode < 1) {
+//            mode++;
+//          } else mode = 0;
         
         }
       }
